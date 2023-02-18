@@ -1,66 +1,76 @@
+//importing required documents and files
 const { RenderShape, Circle, Triangle, Square } = require('../lib/shapes');
 const fs = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(fs.readFile);
 
-describe('text', () => {
-    it('should write "Dog" using the <text> element', async () => {
-        const userAns = {
-            text: 'Dog',
-            textColor: 'red',
-            shape: 'circle',
-            shapeColor: 'blue',
-        }
-        const text = new RenderShape(userAns);
-        text.shapeTemplate();
 
-        const read = await readFile('./examples/Logo.svg', 'utf8');
-        expect(read).toContain('<text');
-    });
-});
+//testing shape.js classes
+describe('shapes', () => {
+    
+    //testing text is created in the svg file
+    describe('text', () => {
+        it('should write "Dog" using the <text> element', async () => {
+            const userAns = {
+                text: 'Dog',
+                textColor: 'red',
+                shape: 'circle',
+                shapeColor: 'blue',
+            }
+            const text = new RenderShape(userAns);
+            text.createShapeSvg();
 
-describe('circle', () => {
-    it('should return a circle using the <circle> element', () => {
-        const circle = new Circle({ shapeColor: 'blue' });
-        const svg = circle.shapeSVG();
-
-        expect(svg).toContain('<circle cx="150" cy="100" r="100"');
+            const read = await readFile('./examples/Logo.svg', 'utf8');
+            expect(read).toContain('<text');
+        });
     });
 
-    it('should return a circle in the color blue', () => {
-        const circle = new Circle({ shapeColor: 'blue' });
-        const svg = circle.shapeSVG();
+    //testing circle class is created and color is set properly
+    describe('circle', () => {
+        it('should return a circle using the <circle> element', () => {
+            const circle = new Circle({ shapeColor: 'blue' });
+            const svg = circle.shapeSVG();
 
-        expect(svg).toContain('fill="blue"');
+            expect(svg).toContain('<circle cx="150" cy="100" r="100"');
+        });
+
+        it('should return a circle in the color blue', () => {
+            const circle = new Circle({ shapeColor: 'blue' });
+            const svg = circle.shapeSVG();
+
+            expect(svg).toContain('fill="blue"');
+        });
     });
-});
 
-describe('triangle', () => {
-    it('should return a triangle using the <polygon> element', () => {
-        const triangle = new Triangle({ shapeColor: 'yellow' });
-        const svg = triangle.shapeSVG();
+    //testing triangle class is created and color is set properly
+    describe('triangle', () => {
+        it('should return a triangle using the <polygon> element', () => {
+            const triangle = new Triangle({ shapeColor: 'yellow' });
+            const svg = triangle.shapeSVG();
 
-        expect(svg).toContain('<polygon points="150,0 275,200 25,200"');
+            expect(svg).toContain('<polygon points="150,0 275,200 25,200"');
+        });
+        it('should return a triangle in the color yellow', () => {
+            const triangle = new Triangle({ shapeColor: 'yellow' });
+            const svg = triangle.shapeSVG();
+
+            expect(svg).toContain('fill="yellow"');
+        });
     });
-    it('should return a triangle in the color yellow', () => {
-        const triangle = new Triangle({ shapeColor: 'yellow' });
-        const svg = triangle.shapeSVG();
 
-        expect(svg).toContain('fill="yellow"');
-    });
-});
+    //testing square class is created and color is set properly
+    describe('square', () => {
+        it('should return a square using the <rect> element', () => {
+            const square = new Square({ shapeColor: 'red' });
+            const svg = square.shapeSVG();
 
-describe('square', () => {
-    it('should return a square using the <rect> element', () => {
-        const square = new Square({ shapeColor: 'red' });
-        const svg = square.shapeSVG();
+            expect(svg).toContain('<rect x="50" y="0" width="200" height="200"');
+        });
+        it('should return a square in the color red', () => {
+            const square = new Square({ shapeColor: 'red' });
+            const svg = square.shapeSVG();
 
-        expect(svg).toContain('<rect x="50" y="0" width="200" height="200"');
-    });
-    it('should return a square in the color red', () => {
-        const square = new Square({ shapeColor: 'red' });
-        const svg = square.shapeSVG();
-
-        expect(svg).toContain('fill="red"');
+            expect(svg).toContain('fill="red"');
+        });
     });
 });
