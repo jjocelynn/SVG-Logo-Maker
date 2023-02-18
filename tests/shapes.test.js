@@ -3,15 +3,15 @@ const fs = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(fs.readFile);
 
-describe('text', () =>{
-    it('should write "Dog" using the <text> element', async () =>{
+describe('text', () => {
+    it('should write "Dog" using the <text> element', async () => {
         const userAns = {
             text: 'Dog',
             textColor: 'red',
             shape: 'circle',
             shapeColor: 'blue',
         }
-        const text = new RenderShape (userAns);
+        const text = new RenderShape(userAns);
         text.shapeTemplate();
 
         const read = await readFile('./examples/Logo.svg', 'utf8');

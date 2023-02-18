@@ -1,49 +1,46 @@
-// const validateAnswers = require('./validateAnswers');
-// const tinycolor = require('tinycolor2');
+const { validateAnswers, allPromptsAnswered, textLengthCheck, cssColor } = require('../lib/validate.js');
 
-// describe('validateAnswers', () => {
-//     let response;
+describe('Validate Prompts', () => {
+    describe('All prompts answered', () => {
+        it('should return false when a response is empty', () => {
+            const expected = false;
+            const response = allPromptsAnswered({ text: "hi", shape: "" });
 
-//     beforeEach(() => {
-//         response = {
-//             text: 'ABC',
-//             textColor: 'red',
-//             shape: 'circle',
-//             shapeColor: '#00FF00'
-//         };
-//     });
+            expect(response).toBe(expected);
+        });
+        it('should return true when all responses have a valid input', () => {
+            const expected = true;
+            const response = allPromptsAnswered({ text: "hi", shape: "rhombicosidodecahedron" });
 
-//     it('returns true for valid inputs', () => {
-//         const cssColorSpy = jest.spyOn(tinycolor, 'isValid').mockReturnValue(true);
+            expect(response).toBe(expected);
+        });
+    });
 
-//         expect(validateAnswers(response)).toBe(true);
-//         expect(cssColorSpy).toHaveBeenCalledTimes(2);
-//         expect(cssColorSpy).toHaveBeenNthCalledWith(1, response.textColor);
-//         expect(cssColorSpy).toHaveBeenNthCalledWith(2, response.shapeColor);
-//     });
+    describe('text length', () => {
+        it('should return true when the text length is less than three but greater than zero', () => {
+            const expected = true;
+            const response = textLengthCheck({ text: "HI" });
 
-//     it('returns false if any response is empty, null or undefined', () => {
-//         response.text = null;
-//         expect(validateAnswers(response)).toBe(false);
-//     });
+            expect(response).toBe(expected);
+        })
+        it('should return false when the text length is greater than three', () => {
+            const expected = false;
+            const response = textLengthCheck({ text: "HELLO" });
 
-//     it('returns false if text length is more than 3 characters', () => {
-//         response.text = 'ABCD';
-//         expect(validateAnswers(response)).toBe(false);
-//     });
+            expect(response).toBe(expected);
+        });
+        it('should return false when the text length is 0 (empty)', () => {
+            const expected = false;
+            const response = textLengthCheck({ text: "" });
 
-//     it('returns false if text color is invalid', () => {
-//         const cssColorSpy = jest.spyOn(tinycolor, 'isValid').mockReturnValue(false);
-//         expect(validateAnswers(response)).toBe(false);
-//         expect(cssColorSpy).toHaveBeenCalledTimes(1);
-//         expect(cssColorSpy).toHaveBeenNthCalledWith(1, response.textColor);
-//     });
+            expect(response).toBe(expected);
+        })
+    })
+});
 
-//     it('returns false if shape color is invalid', () => {
-//         const cssColorSpy = jest.spyOn(tinycolor, 'isValid').mockReturnValueOnce(true).mockReturnValueOnce(false);
-//         expect(validateAnswers(response)).toBe(false);
-//         expect(cssColorSpy).toHaveBeenCalledTimes(2);
-//         expect(cssColorSpy).toHaveBeenNthCalledWith(1, response.textColor);
-//         expect(cssColorSpy).toHaveBeenNthCalledWith(2, response.shapeColor);
-//     });
-// });
+// it('', () => {
+//     const expected =
+//         const response =
+
+//         expect(response).toBe(expected);
+// })
