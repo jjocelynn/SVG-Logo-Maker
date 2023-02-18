@@ -36,6 +36,32 @@ describe('Validate Prompts', () => {
             expect(response).toBe(expected);
         })
     })
+    describe('cssColor', () => {
+        it('should return true when the value is a css color keyword', () => {
+            const expected = true;
+            const response = cssColor("	cornflowerblue");
+
+            expect(response).toBe(expected);
+        })
+        it('should return false when the value is not a css color keyword', () => {
+            const expected = false;
+            const response = cssColor("almostwhite");
+
+            expect(response).toBe(expected);
+        })
+        it('should return true when the value is a hexadecimal number', () => {
+            const expected = true;
+            const response = cssColor("6495ed");
+
+            expect(response).toBe(expected);
+        })
+        it('should return false when the value is not a hexadecimal number', () => {
+            const expected = false;
+            const response = cssColor("100,149,237");
+
+            expect(response).toBe(expected);
+        })
+    })
 });
 
 // it('', () => {

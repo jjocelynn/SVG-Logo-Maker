@@ -24,7 +24,7 @@ describe('circle', () => {
         const circle = new Circle({ shapeColor: 'blue' });
         const svg = circle.shapeSVG();
 
-        expect(svg).toContain('<circle');
+        expect(svg).toContain('<circle cx="150" cy="100" r="100"');
     });
 
     it('should return a circle in the color blue', () => {
@@ -40,7 +40,7 @@ describe('triangle', () => {
         const triangle = new Triangle({ shapeColor: 'yellow' });
         const svg = triangle.shapeSVG();
 
-        expect(svg).toContain('polygon');
+        expect(svg).toContain('<polygon points="150,0 275,200 25,200"');
     });
     it('should return a triangle in the color yellow', () => {
         const triangle = new Triangle({ shapeColor: 'yellow' });
@@ -55,7 +55,7 @@ describe('square', () => {
         const square = new Square({ shapeColor: 'red' });
         const svg = square.shapeSVG();
 
-        expect(svg).toContain('rect');
+        expect(svg).toContain('<rect x="50" y="0" width="200" height="200"');
     });
     it('should return a square in the color red', () => {
         const square = new Square({ shapeColor: 'red' });
